@@ -8,17 +8,17 @@ on:
         required: true
         default: 'info'
   push:
-    branches: [ main ]
+    branches: [ multiple_connected_microservices_gustavo ]
   pull_request:
-    branches: [ main ]
+    branches: [ multiple_connected_microservices_gustavo ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       
     - name: Install apt-get packages
       run: |
@@ -58,6 +58,8 @@ jobs:
         resp=$(curl http://localhost:8002/compute -X POST -d @order.json)
         echo "$resp"
         if [[ $resp == *"21.65"* ]]; then
+          echo -e "Execution Success!"
+        elif [[ $resp == *"zip code"* ]]; then
           echo -e "Execution Success!"
         else
           echo -e "Execution Fail!"

@@ -65,6 +65,17 @@ jobs:
           echo -e "Execution Fail!"
           exit 1
         fi
+        sleep 15
+        resp=$(curl http://localhost:8002/compute -X POST -d @order2.json)
+        echo "$resp"
+        if [[ $resp == *"21.65"* ]]; then
+          echo -e "Execution Success!"
+        elif [[ $resp == *"zip code"* ]]; then
+          echo -e "Execution Success!"
+        else
+          echo -e "Execution Fail!"
+          exit 1
+        fi
         kill -9 `cat sales_tax_rate/sales_tax_rate.pid`
         rm sales_tax_rate/sales_tax_rate.pid
         kill -9 `cat order_total/order_total.pid`

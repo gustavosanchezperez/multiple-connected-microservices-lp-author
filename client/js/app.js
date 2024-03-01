@@ -32,7 +32,13 @@
   }
 
   function updateOrderForm(json) {
-    alert("The order total for " + json.order_id + " has been updated to " + json.total);
+    let status = json.status;
+    if(status == "error"){
+      alert("Error on request: " + json.message);
+    }
+    else {
+      alert("The order total for " + json.order_id + " has been updated to " + json.total);
+    }
     totalField.value = json.total;
   }
 
